@@ -8,8 +8,8 @@ import ru.stqa.pft.addressbook.model.ContactData;
 
 public class ContactHelper extends HelperBase{
 
-  public ContactHelper(WebDriver wd) {
-    super(wd);
+  public ContactHelper(ApplicationManager app) {
+    super(app);
   }
 
   public void submitContactCreation() {
@@ -35,7 +35,6 @@ public class ContactHelper extends HelperBase{
      }
 
 
-
   public void initContactCreation() {
     click(By.linkText("add new"));
   }
@@ -52,9 +51,6 @@ public class ContactHelper extends HelperBase{
     wd.switchTo().alert().accept();
   }
 
-  public void confirmContactDeletion() {
-   //click(By.xpath("//div[@id='content']/form[2]/div[2]/input"));
-  }
 
   public void clickEditIcon() {
     click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
@@ -68,7 +64,7 @@ public class ContactHelper extends HelperBase{
     initContactCreation();
     fillContactForm(contact, creation);
     submitContactCreation();
-   // app.goToMainPage();
+    app.getNavigationHelper().goToMainPage();
   }
 
   public boolean isThereAContact() {

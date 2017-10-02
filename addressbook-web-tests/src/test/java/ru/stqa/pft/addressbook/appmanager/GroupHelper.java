@@ -1,14 +1,15 @@
 package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import ru.stqa.pft.addressbook.model.GroupData;
 
 public class GroupHelper extends HelperBase {
 
-  public GroupHelper (WebDriver wd) {
-    super(wd);
+  public GroupHelper (ApplicationManager app) {
+    super(app);
   }
 
   public void returnToGroupPage() {
@@ -54,5 +55,15 @@ public class GroupHelper extends HelperBase {
 
   public boolean isThereAGroup() {
     return isElementPresent((By.name("selected[]")));
+  }
+
+  public boolean isThereConcreteGroup(String groupName) {
+
+    try {
+      wd.findElement(By.xpath("//span[text()="+groupName+"]"));
+      return true;
+    } catch (NoSuchElementException ex) {
+      return false;
+    }
   }
 }
