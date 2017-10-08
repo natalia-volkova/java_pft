@@ -1,7 +1,13 @@
 package ru.stqa.pft.addressbook.tests;
 
+import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
+
+import java.util.Comparator;
+import java.util.List;
+
+import static java.lang.Integer.compare;
 
 public class ContactModificationTests extends TestBase{
 
@@ -13,11 +19,23 @@ public class ContactModificationTests extends TestBase{
       app.getContactHelper().createContact(new ContactData("Last4", "12346567", null, null, null), true);
 
     }
-    app.getContactHelper().selectContact();
+    app.getNavigationHelper().goToMainPage();
+    List<ContactData> before = app.getContactHelper().getContactList();
+    app.getContactHelper().selectContact(before.size()-1);
     app.getContactHelper().clickEditIcon();
-    app.getContactHelper().fillContactForm(new ContactData("Last2 Modified", "12346567", "test2@mailtest.com", "First2 modified", null), false);
+    ContactData contact = new ContactData("Last2 Modified", "12346567", "test2@mailtest.com", "First2 modified", null);
+    app.getContactHelper().fillContactForm(contact, false);
     app.getContactHelper().submitContactModification();
     app.getNavigationHelper().goToMainPage();
+    List<ContactData> after = app.getContactHelper().getContactList();
+    Comparator<? super ContactData> byId;
+    byId = (Comparator<ContactData>) (o1, o2) -> compare(o1.getId(), o2.getId());
+    before.remove(before.size()-1);
+    before.add(contact);
+    before.sort(byId);
+    after.sort(byId);
+    Assert.assertEquals(before, after);
+
 
   }
 
