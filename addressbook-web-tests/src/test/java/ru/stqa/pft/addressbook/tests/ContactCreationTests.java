@@ -16,7 +16,7 @@ public class ContactCreationTests extends TestBase {
 public void ensurePreconditions(){
   app.goTo().groupPage();
   if (!app.group().isThereConcreteGroup("test1")){
-    app.group().CreateGroup(new GroupData("test1", null, null));
+    app.group().CreateGroup(new GroupData().withName("test1"));
   }
   app.goTo().mainPage();
 }
@@ -26,7 +26,8 @@ public void ensurePreconditions(){
 
 
     List<ContactData> before = app.contact().list();
-    ContactData contact = new ContactData("Last4", "12346567", "test2@mailtest.com", "First2", "test1");
+    ContactData contact = new ContactData()
+            .withFirstName("First2").withLastName("Last2").withHomePhone("1234567").withEMail("test2@mailtest.com").withGroup("test1");
     app.contact().create(contact, true);
 
     List<ContactData> after = app.contact().list();
