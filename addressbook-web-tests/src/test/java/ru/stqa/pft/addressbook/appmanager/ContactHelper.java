@@ -1,12 +1,10 @@
 package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
-import ru.stqa.pft.addressbook.model.GroupData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,15 +38,15 @@ public class ContactHelper extends HelperBase{
      }
 
 
-  public void initContactCreation() {
+  public void initCreation() {
     click(By.linkText("add new"));
   }
 
-  public void selectContact(int index) {
+  public void select(int index) {
     wd.findElements(By.name("selected[]")).get(index).click();
   }
 
-  public void deleteContact() {
+  public void delete() {
     click(By.xpath("//div[@id='content']/form[2]/div[2]/input"));
   }
 
@@ -61,22 +59,35 @@ public class ContactHelper extends HelperBase{
     wd.findElements(By.xpath("//img[@title='Edit']")).get(index).click();
   }
 
-  public void submitContactModification() {
+  public void submitModification() {
     click(By.xpath("//div[@id='content']/form[1]/input[22]"));
   }
 
-  public void createContact(ContactData contact, boolean creation){
-    initContactCreation();
+  public void create(ContactData contact, boolean creation){
+    initCreation();
     fillContactForm(contact, creation);
     submitContactCreation();
-    app.getNavigationHelper().goToMainPage();
+    app.goTo().mainPage();
   }
 
+  public void modify(int index, ContactData contact) {
+    clickEditIcon(index);
+
+    fillContactForm(contact, false);
+    submitModification();
+    app.goTo().mainPage();
+  }
+  public void delete(int index) {
+    select(index);
+    delete();
+    closeConfirmationDialog();
+    app.goTo().mainPage();
+  }
   public boolean isThereAContact() {
     return isElementPresent((By.name("selected[]")));
   }
 
-  public List<ContactData> getContactList() {
+  public List<ContactData> list() {
     List contacts = new ArrayList<ContactData>();
     List <WebElement> elements = wd.findElements(By.xpath("//tr[@name='entry']"));
 
