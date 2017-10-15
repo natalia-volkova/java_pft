@@ -6,9 +6,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import ru.stqa.pft.addressbook.model.GroupData;
+import ru.stqa.pft.addressbook.model.Groups;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class GroupHelper extends HelperBase {
 
@@ -44,6 +47,10 @@ public class GroupHelper extends HelperBase {
 
   }
 
+  private void selectGroupByID(int id) {
+    wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
+  }
+
   public void initGroupModification() {
     click(By.name("edit"));
       }
@@ -52,20 +59,42 @@ public class GroupHelper extends HelperBase {
     click(By.name("update"));
   }
 
-  public void CreateGroup(GroupData group) {
+  public void create(GroupData group) {
     initGroupCreation();
     fillGroupForm(group);
     submitGroupCreation();
     returnToGroupPage();
   }
 
-  public void modifyGroup(List<GroupData> before, GroupData group) {
-   selectGroup(before.size()-1);
-    initGroupModification();
-    fillGroupForm(group);
+  public void modify(int index, GroupData group) {
+   selectGroup(index);
+   initGroupModification();
+   fillGroupForm(group);
     submitGroupModification();
    returnToGroupPage();
   }
+
+  public void modify( GroupData group) {
+    selectGroupByID(group.getId());
+    initGroupModification();
+    fillGroupForm(group);
+    submitGroupModification();
+    returnToGroupPage();
+  }
+
+  public void delete(int index) {
+    selectGroup(index);
+    deleteSelectedGroups();
+    returnToGroupPage();
+  }
+
+  public void delete(GroupData group) {
+    selectGroupByID(group.getId());
+    deleteSelectedGroups();
+    returnToGroupPage();
+  }
+
+
 
   public boolean isThereAGroup() {
     return isElementPresent((By.name("selected[]")));
@@ -74,8 +103,14 @@ public class GroupHelper extends HelperBase {
   public boolean isThereConcreteGroup(String groupName) {
 
     try {
-      wd.findElement(By.xpath("//span[text()="+groupName+"]"));
-      return true;
+      List <WebElement> groups = wd.findElements(By.xpath("//span[contains(@class, 'group')]"));
+      for (WebElement group: groups){
+        System.out.println("Text ="+group.getText());
+        if (group.getText().equals(groupName)){
+          return true;
+        }
+      }
+      return false;
     } catch (NoSuchElementException ex) {
       return false;
     }
@@ -88,6 +123,18 @@ public class GroupHelper extends HelperBase {
 
   public List <GroupData> list() {
     List groups = new ArrayList <GroupData>();
+    List <WebElement> elements = wd.findElements(By.cssSelector("span.group"));
+    for (WebElement element: elements){
+      String name = element.getText();
+      int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+      groups.add(new GroupData().withId(id).withName(name));
+    }
+    return groups;
+  }
+
+  public Groups all() {
+
+    Groups groups = new Groups();
     List <WebElement> elements = wd.findElements(By.cssSelector("span.group"));
     for (WebElement element: elements){
       String name = element.getText();
