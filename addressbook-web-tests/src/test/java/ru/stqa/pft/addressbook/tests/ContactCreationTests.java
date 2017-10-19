@@ -35,9 +35,11 @@ public void ensurePreconditions(){
     ContactData contact = new ContactData()
             .withFirstName("First2").withLastName("Last2").withHomePhone("1234567").withEMail("test2@mailtest.com").withGroup("test1");
     app.contact().create(contact, true);
-
+    assertThat(app.contact().count(), equalTo(before.size()+1));
     Contacts after = app.contact().all();
     contact.withId(after.stream().mapToInt(g->g.getId()).max().getAsInt());
+
+
     assertThat(after, equalTo(before.withAdded(contact)));
 
   }
