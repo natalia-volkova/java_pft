@@ -1,20 +1,40 @@
 package ru.stqa.pft.addressbook.model;
 
+import com.google.gson.annotations.Expose;
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
+
+@XStreamAlias("contact")
 public class ContactData {
-  private int id= Integer.MAX_VALUE;;
+  @XStreamOmitField
+  private int id= Integer.MAX_VALUE;
+  @Expose
   private  String lastName;
+  @Expose
   private  String firstName;
+  @Expose
   private  String homePhone;
+  @Expose
   private  String mobile;
+  @Expose
   private  String workPhone;
+  @XStreamOmitField
   private  String fax;
+  @XStreamOmitField
   private  String phone2;
+  @Expose
   private  String eMail;
+  @Expose
   private  String eMail2;
+  @Expose
   private  String eMail3;
+  @XStreamOmitField
   private  String address;
+  @XStreamOmitField
   private String group;
+  @XStreamOmitField
   private String allPhones;
+  @XStreamOmitField
   private String allEmails;
 
 
