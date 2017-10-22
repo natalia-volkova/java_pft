@@ -7,11 +7,8 @@ import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
 
-
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class ContactHelper extends HelperBase{
 
@@ -27,7 +24,11 @@ public class ContactHelper extends HelperBase{
     type(By.name("firstname"),contactData.getFirstName() );
     type(By.name("lastname"),contactData.getLastName() );
     type(By.name("home"),contactData.getHomePhone() );
+    type(By.name("mobile"),contactData.getMobile());
+    type(By.name("work"),contactData.getWorkPhone());
     type(By.name("email"),contactData.geteMail() );
+    type(By.name("email2"),contactData.geteMail2() );
+    type(By.name("email3"),contactData.geteMail3() );
 
     if (creation)
     {
