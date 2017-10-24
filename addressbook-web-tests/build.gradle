@@ -14,3 +14,15 @@ dependencies {
     compile 'com.google.code.gson:gson:2.8.2'
 
 }
+
+task testContacts(type: Test) {
+    useTestNG(){
+        suites 'src/test/recources/testingContacts.xml'
+    }
+}
+
+task testGroups(type: Test) {
+    useTestNG(){
+        suites 'src/test/recources/testingGroups.xml'
+    }
+}
