@@ -33,7 +33,8 @@ public void ensurePreconditions(){
 
   @DataProvider
   public Iterator<Object []> validContactsXml () throws IOException {
-    BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/contacts.xml")));
+
+  try(BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/contacts.xml")))){
     String xml = "";
     String line = reader.readLine();
     while (line!=null){
@@ -44,12 +45,15 @@ public void ensurePreconditions(){
     xstream.processAnnotations(ContactData.class);
     List<ContactData> contacts = (List<ContactData>) xstream.fromXML(xml);
     return contacts.stream().map((g)-> new Object[]{g}).collect(Collectors.toList()).iterator();
+  }
+
+
 
   }
 
   @DataProvider
   public Iterator<Object []> validContactsJson () throws IOException {
-    BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/contacts.json")));
+  try(BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/contacts.json")))){
     String json = "";
     String line = reader.readLine();
     while (line!=null){
@@ -60,6 +64,9 @@ public void ensurePreconditions(){
 
     List<ContactData> contacts = (List<ContactData>) gson.fromJson(json, new TypeToken<List<ContactData>>(){}.getType());
     return contacts.stream().map((g)-> new Object[]{g}).collect(Collectors.toList()).iterator();
+  }
+
+
 
   }
 
