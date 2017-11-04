@@ -19,38 +19,59 @@ public class ContactData {
   private int id= Integer.MAX_VALUE;
   @Expose
   @Column(name = "lastname")
-  private  String lastName;
+  private  String lastName = "";
   @Expose
   @Column(name = "firstname")
-  private  String firstName;
+  private  String firstName= "";
   @Expose
   @Column(name = "home")
   @Type(type="text")
-  private  String homePhone;
+  private  String homePhone= "";
   @Expose
   @Column(name = "mobile")
   @Type(type="text")
-  private  String mobile;
+  private  String mobile= "";
   @Expose
   @Column(name = "work")
   @Type(type="text")
-  private  String workPhone;
+  private  String workPhone= "";
   @XStreamOmitField
   @Column(name = "fax")
   @Type(type="text")
-  private  String fax;
+  private  String fax= "";
   @XStreamOmitField
   @Column(name = "phone2 ")
   @Type(type="text")
-  private  String phone2;
+  private  String phone2= "";
   @Expose
   @Type(type="text")
   @Column(name = "email")
-  private  String eMail;
+  private  String eMail= "";
   @Expose
   @Type(type="text")
   @Column(name = "email2")
-  private  String eMail2;
+  private  String eMail2= "";
+  @Expose
+  @Type(type="text")
+
+  @Column(name = "email3")
+  private  String eMail3= "";
+  @XStreamOmitField
+  @Column(name = "address")
+  @Type(type="text")
+  private  String address= "";
+  @XStreamOmitField
+  @Transient
+  private String group;
+  @XStreamOmitField
+  @Transient
+  private String allPhones;
+  @XStreamOmitField
+  @Transient
+  private String allEmails;
+  @Column(name = "photo")
+  @Type(type="text")
+  public String photo;
 
   @Override
   public boolean equals(Object o) {
@@ -90,27 +111,7 @@ public class ContactData {
     return result;
   }
 
-  @Expose
-  @Type(type="text")
 
-  @Column(name = "email3")
-  private  String eMail3;
-  @XStreamOmitField
-  @Column(name = "address")
-  @Type(type="text")
-  private  String address;
-  @XStreamOmitField
-  @Transient
-  private String group;
-  @XStreamOmitField
-  @Transient
-  private String allPhones;
-  @XStreamOmitField
-  @Transient
-  private String allEmails;
-  @Column(name = "photo")
-  @Type(type="text")
-  public String photo;
 
 public File getPhoto() {return new File(photo);}
 
@@ -253,6 +254,7 @@ public ContactData withPhoto(File photo){
   }
 
   public int getId() {    return id;  }
+
 
   @Override
   public String toString() {

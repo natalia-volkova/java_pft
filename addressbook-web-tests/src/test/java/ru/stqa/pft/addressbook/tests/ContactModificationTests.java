@@ -29,6 +29,11 @@ public void ensurePreconditions(){
     app.contact().modify(contact);
     assertThat(app.contact().count(), equalTo(before.size()));
     Contacts after = app.db().contacts();
+    System.out.println("List after");
+    System.out.println(after);
+    System.out.println("before.withModified(modifiedContact, contact)");
+    System.out.println(before.withModified(modifiedContact, contact));
+
     assertThat(after, equalTo(before.withModified(modifiedContact, contact)));
 
   }
