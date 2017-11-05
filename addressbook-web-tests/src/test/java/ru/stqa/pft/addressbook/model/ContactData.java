@@ -7,6 +7,8 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.File;
+import java.util.HashSet;
+import java.util.Set;
 
 @XStreamAlias("contact")
 @Entity
@@ -60,10 +62,8 @@ public class ContactData {
   @Column(name = "address")
   @Type(type="text")
   private  String address= "";
-  @XStreamOmitField
-  @Transient
-  private String group;
-  @XStreamOmitField
+
+   @XStreamOmitField
   @Transient
   private String allPhones;
   @XStreamOmitField
@@ -71,7 +71,13 @@ public class ContactData {
   private String allEmails;
   @Column(name = "photo")
   @Type(type="text")
-  public String photo;
+  public String photo= "";
+
+  @ManyToMany(fetch = FetchType.EAGER)
+  @JoinTable(name="address_in_groups",
+          joinColumns = @JoinColumn (name = "id"),inverseJoinColumns = @JoinColumn (name = "group_id"))
+  @Type(type="text")
+  private Set<GroupData> groups = new HashSet<GroupData>();
 
   @Override
   public boolean equals(Object o) {
@@ -91,7 +97,10 @@ public class ContactData {
     if (eMail != null ? !eMail.equals(that.eMail) : that.eMail != null) return false;
     if (eMail2 != null ? !eMail2.equals(that.eMail2) : that.eMail2 != null) return false;
     if (eMail3 != null ? !eMail3.equals(that.eMail3) : that.eMail3 != null) return false;
-    return address != null ? address.equals(that.address) : that.address == null;
+    if (address != null ? !address.equals(that.address) : that.address != null) return false;
+
+    if (photo != null ? !photo.equals(that.photo) : that.photo != null) return false;
+    return groups != null ? groups.equals(that.groups) : that.groups == null;
   }
 
   @Override
@@ -108,12 +117,13 @@ public class ContactData {
     result = 31 * result + (eMail2 != null ? eMail2.hashCode() : 0);
     result = 31 * result + (eMail3 != null ? eMail3.hashCode() : 0);
     result = 31 * result + (address != null ? address.hashCode() : 0);
+
+    result = 31 * result + (photo != null ? photo.hashCode() : 0);
+    result = 31 * result + (groups != null ? groups.hashCode() : 0);
     return result;
   }
 
-
-
-public File getPhoto() {return new File(photo);}
+  public File getPhoto() {return new File(photo);}
 
 public ContactData withPhoto(File photo){
   this.photo=photo.getPath();
@@ -191,13 +201,10 @@ public ContactData withPhoto(File photo){
     return this;
   }
 
-
-  public ContactData withGroup(String group) {
-    this.group = group;
+  public ContactData inGroup(GroupData group) {
+    groups.add(group);
     return this;
   }
-
-
 
   public String getLastName() {
     return lastName;
@@ -225,6 +232,8 @@ public ContactData withPhoto(File photo){
     return phone2;
   }
 
+
+
   public String getAllPhones() {
     return allPhones;
   }
@@ -249,20 +258,39 @@ public ContactData withPhoto(File photo){
     return address;
   }
 
-  public String getGroup() {
-    return group;
-  }
-
   public int getId() {    return id;  }
 
+  public Groups getGroups() {
+    return new Groups(groups);
+  }
 
-  @Override
+
+
+ /* @Override
   public String toString() {
     return "ContactData{" +
             "lastName='" + lastName + '\'' +
             ", firstName='" + firstName + '\'' +
             '}';
+  }*/
+
+  @Override
+  public String toString() {
+    return "ContactData{" +
+            "id=" + id +
+            ", lastName='" + lastName + '\'' +
+            ", firstName='" + firstName + '\'' +
+            ", homePhone='" + homePhone + '\'' +
+            ", mobile='" + mobile + '\'' +
+            ", workPhone='" + workPhone + '\'' +
+            ", fax='" + fax + '\'' +
+            ", phone2='" + phone2 + '\'' +
+            ", eMail='" + eMail + '\'' +
+            ", eMail2='" + eMail2 + '\'' +
+            ", eMail3='" + eMail3 + '\'' +
+            ", address='" + address + '\'' +
+            ", photo='" + photo + '\'' +
+
+            '}';
   }
-
-
 }

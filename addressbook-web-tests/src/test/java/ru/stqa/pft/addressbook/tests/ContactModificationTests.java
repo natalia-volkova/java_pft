@@ -23,20 +23,19 @@ public void ensurePreconditions(){
 
     Contacts before = app.db().contacts();
     ContactData modifiedContact = before.iterator().next();
+
     ContactData contact = new ContactData().withId(modifiedContact.getId())
             .withLastName("Last2 Modified").withFirstName("First2 modified").withHomePhone("12346567").withEMail("test2@mailtest.com");
     app.goTo().mainPage();
     app.contact().modify(contact);
     assertThat(app.contact().count(), equalTo(before.size()));
     Contacts after = app.db().contacts();
-    System.out.println("List after");
-    System.out.println(after);
-    System.out.println("before.withModified(modifiedContact, contact)");
-    System.out.println(before.withModified(modifiedContact, contact));
-
+    contact= app.contact().setContactGroups(modifiedContact, contact);
     assertThat(after, equalTo(before.withModified(modifiedContact, contact)));
-
+    verifyContactListUI();
   }
+
+
 
 
 

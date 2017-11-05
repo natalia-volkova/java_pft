@@ -8,45 +8,5 @@
     "eMail": "email0@testmail.com",
     "eMail2": "email20@testmail.com",
     "eMail3": "test30@testmail.com"
-  },
-  {
-    "lastName": "Last 1",
-    "firstName": "First 1",
-    "homePhone": "1111",
-    "mobile": "2221",
-    "workPhone": "3331",
-    "eMail": "email1@testmail.com",
-    "eMail2": "email21@testmail.com",
-    "eMail3": "test31@testmail.com"
-  },
-  {
-    "lastName": "Last 2",
-    "firstName": "First 2",
-    "homePhone": "1112",
-    "mobile": "2222",
-    "workPhone": "3332",
-    "eMail": "email2@testmail.com",
-    "eMail2": "email22@testmail.com",
-    "eMail3": "test32@testmail.com"
-  },
-  {
-    "lastName": "Last 3",
-    "firstName": "First 3",
-    "homePhone": "1113",
-    "mobile": "2223",
-    "workPhone": "3333",
-    "eMail": "email3@testmail.com",
-    "eMail2": "email23@testmail.com",
-    "eMail3": "test33@testmail.com"
-  },
-  {
-    "lastName": "Last 4",
-    "firstName": "First 4",
-    "homePhone": "1114",
-    "mobile": "2224",
-    "workPhone": "3334",
-    "eMail": "email4@testmail.com",
-    "eMail2": "email24@testmail.com",
-    "eMail3": "test34@testmail.com"
   }
 ]
