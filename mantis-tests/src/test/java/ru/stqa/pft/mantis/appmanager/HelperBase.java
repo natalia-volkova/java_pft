@@ -1,8 +1,16 @@
+<<<<<<< HEAD
 package ru.stqa.pft.mantis.appmanager;
 
         import org.openqa.selenium.By;
         import org.openqa.selenium.NoSuchElementException;
         import org.openqa.selenium.WebDriver;
+=======
+package ru.stqa.pft.addressbook.appmanager;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebDriver;
+>>>>>>> 8c4ced4695cedaa713ffba0b8c988130996de118
 
 public class HelperBase {
 
