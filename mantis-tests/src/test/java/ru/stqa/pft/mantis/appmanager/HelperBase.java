@@ -1,29 +1,19 @@
-<<<<<<< HEAD
 package ru.stqa.pft.mantis.appmanager;
 
         import org.openqa.selenium.By;
         import org.openqa.selenium.NoSuchElementException;
         import org.openqa.selenium.WebDriver;
-=======
-package ru.stqa.pft.addressbook.appmanager;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
->>>>>>> 8c4ced4695cedaa713ffba0b8c988130996de118
 
 public class HelperBase {
 
   protected ApplicationManager app;
   protected WebDriver wd;
 
-  //public HelperBase(WebDriver wd) {
-  //  this.wd = wd;
-  //}
 
   public HelperBase(ApplicationManager app) {
     this.app = app;
-    this.wd = app.wd;
+    this.wd = app.getDriver();
   }
 
   protected void click(By locator) {

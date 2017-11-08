@@ -11,11 +11,9 @@ dependencies {
     compile 'org.hamcrest:java-hamcrest:2.0.0.0'
     compile 'commons-net:commons-net:3.6'
     compile 'org.subethamail:subethasmtp:3.1.7'
-<<<<<<< HEAD
     compile 'ru.lanwen.verbalregex:java-verbal-expressions:1.4'
     compile 'ch.qos.logback:logback-classic:1.1.5'
-=======
->>>>>>> 8c4ced4695cedaa713ffba0b8c988130996de118
+
 
 }
 
