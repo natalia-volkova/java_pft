@@ -23,11 +23,8 @@ public class ApplicationManager {
   private RegistrationHelper registrationHelper;
   private FtpHelper ftp;
   private MailHelper mailHelper;
-<<<<<<< HEAD
   private JamesHelper jamesHelper;
 
-=======
->>>>>>> 8c4ced4695cedaa713ffba0b8c988130996de118
 
   public ApplicationManager(String browser)  {
 
@@ -73,18 +70,13 @@ public class ApplicationManager {
     return ftp;
   }
 
-<<<<<<< HEAD
   public MailHelper mail() {
-=======
-  public MailHelper mailHelper() {
->>>>>>> 8c4ced4695cedaa713ffba0b8c988130996de118
     if (mailHelper==null){
       mailHelper= new MailHelper(this);
     }
     return mailHelper;
   }
 
-<<<<<<< HEAD
   public JamesHelper james() {
     if (jamesHelper==null){
       jamesHelper= new JamesHelper(this);
@@ -92,8 +84,6 @@ public class ApplicationManager {
     return jamesHelper;
   }
 
-=======
->>>>>>> 8c4ced4695cedaa713ffba0b8c988130996de118
   public WebDriver getDriver() {
     if (wd==null){
 

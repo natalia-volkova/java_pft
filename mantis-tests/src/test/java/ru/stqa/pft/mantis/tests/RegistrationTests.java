@@ -12,17 +12,13 @@ import java.io.IOException;
 import java.util.List;
 
 public class RegistrationTests extends TestBase{
-<<<<<<< HEAD
 
-=======
->>>>>>> 8c4ced4695cedaa713ffba0b8c988130996de118
     @BeforeMethod
     public void startMailServer(){
         app.mail().start();
     }
 
     @Test
-<<<<<<< HEAD
     public void testRegistration() throws IOException, MessagingException {
         long now = System.currentTimeMillis();
         String email = String.format("user%s@localhost.localdomain", now);
@@ -41,11 +37,6 @@ public class RegistrationTests extends TestBase{
        MailMessage mailMessage = mailMessages.stream().filter((m)->m.to.equals(email)).findFirst().get();
         VerbalExpression regex = VerbalExpression.regex().find("http://").nonSpace().oneOrMore().build();
         return regex.getText(mailMessage.text);
-=======
-    public void testRegistration(){
-        app.registration().start("user1", "user1@localhost.localdomain");
-        app.mail().waitForMail(2, 10000);
->>>>>>> 8c4ced4695cedaa713ffba0b8c988130996de118
     }
 
     @AfterMethod(alwaysRun=true)
