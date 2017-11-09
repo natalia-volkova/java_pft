@@ -1,25 +1,28 @@
 package ru.stqa.pft.mantis.model;
 
-import com.google.gson.annotations.Expose;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "mantis_user_table")
 public class UserData {
 
     @Id
     @Column(name = "id")
+   // @Type(type="text")
     private int id = Integer.MAX_VALUE;
 
-    @Expose
     @Column(name = "username")
     @Type(type="text")
     public String username;
 
-    @Expose
+
     @Column(name = "email")
-    @Type(type="text")
+    @Type(type="varchar")
     public String email;
 
     public int getId() {
@@ -61,11 +64,4 @@ public class UserData {
         return this;
     }
 
-
-
-    public UserData(int id, String username, String email) {
-        this.id = id;
-        this.username = username;
-        this.email = email;
-    }
 }

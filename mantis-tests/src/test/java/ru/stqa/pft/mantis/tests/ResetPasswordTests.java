@@ -4,7 +4,6 @@ import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import ru.lanwen.verbalregex.VerbalExpression;
 import ru.stqa.pft.mantis.model.MailMessage;
 import ru.stqa.pft.mantis.model.UserData;
 
@@ -20,12 +19,13 @@ public class ResetPasswordTests extends TestBase{
         }
 
         @BeforeMethod
-        public void ensurePreconditions() {
+        public void ensurePreconditions() throws IOException, MessagingException {
             if (app.db().users().size() == 1) {
                 long now = System.currentTimeMillis();
                 String email = String.format("username%s@localhost", now);
                 String username = String.format("username%s", now);
-                app.registration().create(new UserData().withID(Integer.MAX_VALUE).withUsername(username).withEmail(email));
+                String password = "password";
+                app.registration().create(new UserData().withID(Integer.MAX_VALUE).withUsername(username).withEmail(email), password);
 
             }
         }
@@ -43,18 +43,12 @@ public class ResetPasswordTests extends TestBase{
             app.user().openUsersList();
             app.user().resetPassword(username);
 
-            List<MailMessage> mailMessages = app.james().waitForMail(username, password, 100000);
-            String confirmationLink= findConfirmationLink(mailMessages, email);
+            List<MailMessage> mailMessages = app.james().waitForMail(username, newPassword, 100000);
+            String confirmationLink= app.registration().findConfirmationLink(mailMessages, email);
             app.registration().finish(confirmationLink, newPassword);
             Assert.assertTrue(app.newSession().login(username, newPassword));
 
 
-        }
-
-        private String findConfirmationLink(List<MailMessage> mailMessages, String email) {
-            MailMessage mailMessage = mailMessages.stream().filter((m)->m.to.equals(email)).findFirst().get();
-            VerbalExpression regex = VerbalExpression.regex().find("http://").nonSpace().oneOrMore().build();
-            return regex.getText(mailMessage.text);
         }
 
         @AfterMethod(alwaysRun=true)
@@ -63,5 +57,5 @@ public class ResetPasswordTests extends TestBase{
         }
 
 
-    }
+
 }
