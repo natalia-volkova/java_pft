@@ -44,7 +44,8 @@ public class HbConnectionTest {
         session.beginTransaction();
         List<UserData> result = session.createQuery( "from UserData " ).list();
         for (UserData user : result ) {
-            System.out.println( user);
+            System.out.println( user.getUsername());
+            System.out.println( user.getEmail());
 
         }
         session.getTransaction().commit();

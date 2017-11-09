@@ -17,12 +17,12 @@ public class UserData {
     private int id = Integer.MAX_VALUE;
 
     @Column(name = "username")
-    @Type(type="text")
+    @Type(type = "string")
     public String username;
 
 
     @Column(name = "email")
-    @Type(type="varchar")
+    @Type(type = "string")
     public String email;
 
     public int getId() {

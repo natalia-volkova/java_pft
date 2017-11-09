@@ -30,5 +30,9 @@ public class UserHelper extends HelperBase {
         click(By.cssSelector("input[value='Reset Password']"));
     }
 
+    public void loginAdmin(){
+        app.user().login(app.getProperty("web.adminLogin"), app.getProperty("web.adminPassword"));
+    }
+
 
 }
