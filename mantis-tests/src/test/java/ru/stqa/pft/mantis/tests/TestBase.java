@@ -30,7 +30,7 @@ public class TestBase {
     //app.ftp().restore("config_inc.php.bak", "config_inc.php");
 
   }
-  boolean isIssueOpen(int issueId) throws RemoteException, ServiceException, MalformedURLException {
+  boolean isIssueOpenMantis(int issueId) throws RemoteException, ServiceException, MalformedURLException {
     Issue issue = app.soap().getIssue(issueId);
     if (issue.getStatus().toLowerCase().equals("closed")||issue.getStatus().toLowerCase().equals("resolved")){
       return false;
@@ -38,9 +38,17 @@ public class TestBase {
     else return true;
   }
 
+  boolean isIssueOpenBugify(int issueId) throws IOException, ServiceException {
+    Issue issue = app.rest().getIssue(issueId);
+    if (issue.getStateName().toLowerCase().equals("closed")||issue.getStateName().toLowerCase().equals("resolved")){
+      return false;
+    }
+    else return true;
+  }
 
-  public void skipIfNotFixed(int issueId) throws RemoteException, ServiceException, MalformedURLException {
-    if (isIssueOpen(issueId)) {
+
+  public void skipIfNotFixed(int issueId) throws IOException, ServiceException {
+    if (isIssueOpenBugify(issueId)) {
       throw new SkipException("Ignored because of issue " + issueId);
     }
   }
