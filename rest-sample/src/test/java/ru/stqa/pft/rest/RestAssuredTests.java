@@ -5,7 +5,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import com.jayway.restassured.RestAssured;
-import org.apache.http.client.fluent.Executor;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -17,13 +16,13 @@ import static org.testng.Assert.assertEquals;
 public class RestAssuredTests {
     @BeforeClass
     public void init() {
-        RestAssured.authentication = RestAssured.basic("LSGjeU4yP1X493ud1hNniA==", "");
+        RestAssured.authentication = RestAssured.basic("28accbe43ea112d9feb328d2c00b3eed", "");
     }
 
     @Test
     public void testCreateIssue() throws IOException {
         Set<Issue> oldIssues = getIssues();
-        Issue newIssue = new Issue().withSubject("Test issue").withDescription("New test issue");
+        Issue newIssue = new Issue().withSubject("Test issue java").withDescription("New test issue java");
         int issueId = createIssue(newIssue);
         Set<Issue> newIssues = getIssues();
         oldIssues.add(newIssue.withId(issueId));
@@ -32,14 +31,9 @@ public class RestAssuredTests {
 
     private Set<Issue> getIssues() throws IOException {
         String json = RestAssured.get("http://demo.bugify.com/api/issues.json?limit=5000").asString();
-
         JsonElement parsed = new JsonParser().parse(json);
         JsonElement issues = parsed.getAsJsonObject().get("issues");
-       return new Gson().fromJson(issues, new TypeToken<Set<Issue>>(){}.getType());
-    }
-
-    private Executor getExecutor() {
-        return Executor.newInstance().auth("28accbe43ea112d9feb328d2c00b3eed", "");
+        return new Gson().fromJson(issues, new TypeToken<Set<Issue>>(){}.getType());
     }
 
     private int createIssue(Issue newIssue) throws IOException {
@@ -51,3 +45,4 @@ public class RestAssuredTests {
         return parsed.getAsJsonObject().get("issue_id").getAsInt();
     }
 }
+

@@ -26,7 +26,7 @@ public class RestTests {
     }
 
     private Set<Issue> getIssues() throws IOException {
-        String json = getExecutor().execute(Request.Get("http://demo.bugify.com/api/issues.json"))
+        String json = getExecutor().execute(Request.Get("http://demo.bugify.com/api/issues.json?limit=5000"))
                // .bodyForm(new BasicNameValuePair("limit", "2000")))
                 .returnContent().asString();
 
